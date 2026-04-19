@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Darija — ENSAM Meknès</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&amp;family=DM+Serif+Display:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#faf7f4;--surface:#ffffff;--surface2:#f5ede8;
+  --border:#e8ddd7;--border2:#d9ccc5;
+  --text:#1a1a1a;--muted:#7a6b63;--muted2:#b3a39b;
+  --accent:#c8524a;--accent-dim:#a8433c;
+  --green:#4a8c5c;--red:#c8524a;--white:#ffffff;--blue:#4a6e8c;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.6}
+.site-header{padding:52px 24px 38px;max-width:820px;margin:auto;border-bottom:1px solid var(--border)}
+.eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);font-weight:500;margin-bottom:12px}
+.site-header h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,5vw,2.9rem);font-weight:400;color:var(--text);line-height:1.15}
+.site-header h1 em{font-style:italic;color:var(--accent)}
+.site-header p{margin-top:9px;color:var(--muted);font-size:.88rem;font-weight:300}
+.site-nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:820px;margin:auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.ntab{flex-shrink:0;padding:13px 17px;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;background:none;border:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;white-space:nowrap}
+.ntab:hover{color:var(--text)}
+.ntab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.main{max-width:820px;margin:auto;padding:36px 24px 80px}
+.section{display:none;animation:fadeIn .22s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.tip{font-size:13px;color:var(--muted);font-weight:300;padding:12px 16px;border-left:2px solid var(--accent);background:var(--surface2);margin-bottom:20px;line-height:1.6}
+.lesson-pills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:24px}
+.lpill{padding:6px 14px;border-radius:20px;border:1px solid var(--border2);font-size:11px;letter-spacing:.5px;font-weight:500;cursor:pointer;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;transition:all .18s}
+.lpill:hover{border-color:var(--accent);color:var(--accent)}
+.lpill.active{background:var(--accent);color:var(--white);border-color:var(--accent)}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--border)}
+.vocab-card{background:var(--surface);padding:16px;display:flex;flex-direction:column;gap:5px;transition:background .15s}
+.vocab-card:hover{background:var(--surface2)}
+.vc-langs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:2px}
+.vc-fr{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);font-weight:500}
+.vc-en{font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--blue);font-weight:500}
+.vc-darija{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--text)}
+.vc-arabic{font-size:1rem;color:var(--muted2);text-align:right}
+.vc-ph{font-size:12px;color:var(--accent);font-style:italic}
+.vc-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.speak-btn{background:var(--surface2);border:1px solid var(--border2);color:var(--muted);padding:5px 12px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;border-radius:20px}
+.speak-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--bg)}
+.speak-btn.playing{border-color:var(--green);color:var(--green)}
+.grammar-section{margin-bottom:40px}
+.grammar-title{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--text);margin-bottom:6px}
+.grammar-intro{font-size:13px;color:var(--muted);margin-bottom:16px;font-weight:300;line-height:1.7}
+.grammar-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.grammar-table th{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2);font-weight:500;padding:8px 12px;text-align:left;border-bottom:1px solid var(--border)}
+.grammar-table td{padding:11px 12px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:top}
+.grammar-table tr:last-child td{border-bottom:none}
+.grammar-table tr:hover td{background:var(--surface2)}
+.td-d{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text)}
+.td-fr{color:var(--text)}.td-en{color:var(--blue)}
+.td-ph{font-size:12px;color:var(--accent);font-style:italic}
+.td-ctx{font-size:12px;color:var(--muted)}
+.rule-box{background:var(--surface2);border:1px solid var(--border2);padding:14px 16px;margin-bottom:14px;border-radius:4px}
+.rule-box p{font-size:13px;color:var(--muted);line-height:1.7}
+.rule-box strong{color:var(--accent);font-weight:500}
+.phrase-group-title{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted2);font-weight:500;margin:32px 0 12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.phrase-item{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.phrase-item:last-child{border-bottom:none}
+.phrase-left{flex:1}
+.phrase-darija{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:3px}
+.phrase-trans{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:3px}
+.phrase-fr{font-size:12.5px;color:var(--muted)}
+.phrase-en{font-size:12.5px;color:var(--blue)}
+.phrase-ctx{font-size:11px;color:var(--accent);letter-spacing:.3px}
+.phrase-speak{flex-shrink:0;background:var(--surface2);border:1px solid var(--border2);color:var(--muted);padding:5px 12px;font-size:11px;cursor:pointer;font-family:'DM Sans',sans-serif;border-radius:20px;transition:all .18s;align-self:center}
+.phrase-speak:hover{border-color:var(--accent);color:var(--accent)}
+.phrase-speak.playing{border-color:var(--green);color:var(--green)}
+.dialogue-card{background:var(--surface);border:1px solid var(--border);margin-bottom:20px;border-radius:4px;overflow:hidden}
+.dialogue-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--surface2)}
+.dialogue-title{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text)}
+.dialogue-meta{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.dialogue-body{padding:18px}
+.dl-line{display:flex;gap:14px;margin-bottom:14px;align-items:flex-start}
+.dl-line:last-child{margin-bottom:0}
+.dl-avatar{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--surface2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--accent);letter-spacing:.5px;font-family:'DM Sans',sans-serif}
+.dl-avatar.b{color:var(--blue)}
+.dl-content{flex:1}
+.dl-darija{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--text);margin-bottom:2px}
+.dl-fr{font-size:12px;color:var(--muted)}
+.dl-en{font-size:12px;color:var(--blue)}
+.dialogue-footer{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.dl-play{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;background:var(--accent);color:var(--white);border:none;font-size:11px;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;border-radius:20px;transition:background .18s;font-family:'DM Sans',sans-serif;font-weight:500}
+.dl-play:hover{background:var(--accent-dim)}
+.dl-status{font-size:11px;color:var(--muted2)}
+.progress-wrap{margin-bottom:24px}
+.progress-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.progress-track{height:2px;background:var(--border2);width:100%;border-radius:2px}
+.progress-fill{height:2px;background:var(--accent);transition:width .4s;border-radius:2px}
+.quiz-q{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--text);margin-bottom:22px;line-height:1.4}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.quiz-opt{padding:13px 10px;border:1px solid var(--border2);background:var(--surface);color:var(--text);font-size:.9rem;font-family:'DM Serif Display',serif;cursor:pointer;text-align:center;transition:all .15s;border-radius:4px;line-height:1.3}
+.quiz-opt:hover{border-color:var(--accent);color:var(--accent);background:var(--surface2)}
+.quiz-opt.correct{border-color:var(--green);color:var(--green);background:rgba(74,140,92,.08)}
+.quiz-opt.wrong{border-color:var(--red);color:var(--red);background:rgba(200,82,74,.08)}
+.feedback{font-size:13px;font-weight:500;padding:11px 14px;margin-bottom:14px;border-radius:4px;display:none}
+.feedback.show{display:block}
+.feedback.correct{background:rgba(74,140,92,.1);color:var(--green);border:1px solid rgba(74,140,92,.25)}
+.feedback.wrong{background:rgba(200,82,74,.1);color:var(--red);border:1px solid rgba(200,82,74,.25)}
+.btn-primary{width:100%;padding:13px;background:var(--accent);color:var(--white);border:none;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .18s;border-radius:4px}
+.btn-primary:hover{background:var(--accent-dim)}
+.btn-primary:disabled{background:var(--border2);color:var(--muted2);cursor:not-allowed}
+.btn-outline{width:100%;padding:12px;background:transparent;color:var(--muted);border:1px solid var(--border2);font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .18s;border-radius:4px}
+.btn-outline:hover{border-color:var(--text);color:var(--text)}
+.btn-outline:disabled{opacity:.3;cursor:not-allowed}
+.done-card{text-align:center;padding:48px 24px;display:none}
+.done-card.show{display:block}
+.done-score{font-family:'DM Serif Display',serif;font-size:3.5rem;color:var(--accent);margin-bottom:8px}
+.done-label{font-size:14px;color:var(--muted);margin-bottom:32px}
+.listen-word{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--text);margin-bottom:4px;text-align:center}
+.listen-ph{font-size:13px;color:var(--accent);font-style:italic;text-align:center;margin-bottom:18px}
+.waveform{display:flex;align-items:center;justify-content:center;gap:3px;height:40px;margin-bottom:18px}
+.wbar{width:3px;background:var(--border2);border-radius:2px;transition:height .1s}
+.wbar.a{background:var(--accent)}
+.listen-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.listen-opt{padding:12px 10px;border:1px solid var(--border2);background:var(--surface);color:var(--text);font-size:.82rem;font-family:'DM Sans',sans-serif;cursor:pointer;text-align:center;transition:all .15s;border-radius:4px;font-weight:300;line-height:1.4}
+.listen-opt:hover{border-color:var(--accent);color:var(--accent);background:var(--surface2)}
+.listen-opt.correct{border-color:var(--green);color:var(--green);background:rgba(74,140,92,.08)}
+.listen-opt.wrong{border-color:var(--red);color:var(--red);background:rgba(200,82,74,.08)}
+.translate-input{width:100%;padding:13px 15px;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-size:1rem;font-family:'DM Serif Display',serif;outline:none;transition:border-color .18s;border-radius:4px;margin-bottom:10px}
+.translate-input:focus{border-color:var(--accent)}
+.t-word{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--text);margin-bottom:4px}
+.t-en{font-size:13px;color:var(--blue);margin-bottom:18px}
+.rec-word{font-family:'DM Serif Display',serif;font-size:2.2rem;color:var(--accent);margin:14px 0 4px;text-align:center}
+.rec-ph{font-size:13px;color:var(--muted);text-align:center;margin-bottom:22px;font-style:italic}
+.rec-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.rbtn-start{padding:11px 22px;background:var(--accent);color:var(--white);border:none;font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border-radius:20px;transition:background .18s}
+.rbtn-start:hover{background:var(--accent-dim)}
+.rbtn-sec{padding:11px 18px;background:transparent;color:var(--muted);border:1px solid var(--border2);font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;border-radius:20px;transition:all .18s}
+.rbtn-sec:hover{border-color:var(--text);color:var(--text)}
+.rbtn-sec:disabled{opacity:.3;cursor:not-allowed}
+.rec-status{font-size:12px;color:var(--muted2);text-align:center;min-height:18px}
+@media(max-width:500px){
+  .vocab-grid{grid-template-columns:1fr 1fr}
+  .quiz-opts,.listen-opts{grid-template-columns:1fr}
+  .grammar-table{font-size:12.5px}
+  .grammar-table td,.grammar-table th{padding:8px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <p class="eyebrow">ENSAM Meknès · Guide linguistique</p>
+  <h1>Apprends<br>la <em>Darija</em></h1>
+  <p>Pour les étudiants étrangers — vocabulaire, grammaire, verbes, phrases &amp; dialogues</p>
+</header>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <button class="ntab active" onclick="showSection('vocab',this)">Vocabulaire</button>
+    <button class="ntab" onclick="showSection('grammaire',this)">Grammaire</button>
+    <button class="ntab" onclick="showSection('verbes',this)">Verbes</button>
+    <button class="ntab" onclick="showSection('phrases',this)">Phrases</button>
+    <button class="ntab" onclick="showSection('dialogues',this)">Dialogues</button>
+    <button class="ntab" onclick="showSection('quiz',this)">Quiz</button>
+    <button class="ntab" onclick="showSection('ecoute',this)">Écoute</button>
+    <button class="ntab" onclick="showSection('traduction',this)">Traduction</button>
+    <button class="ntab" onclick="showSection('prononciation',this)">Prononciation</button>
+  </div>
+</nav>
+
+<main class="main">
+
+<div class="section active" id="s-vocab">
+  <div class="lesson-pills" id="lessonPills"></div>
+  <div class="tip" id="lessonTip"></div>
+  <div class="vocab-grid" id="vocabGrid"></div>
+</div>
+
+<div class="section" id="s-grammaire">
+  <div class="grammar-section">
+    <p class="grammar-title">Les pronoms personnels</p>
+    <p class="grammar-intro">En Darija, les pronoms sont simples et invariables. Pas de genre pour "je" ou "nous".</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija</th><th>Français</th><th>English</th><th>Phonétique</th></tr></thead>
+      <tbody>
+        <tr><td class="td-d">Ana</td><td class="td-fr">Je / Moi</td><td class="td-en">I / Me</td><td class="td-ph">a-na</td></tr>
+        <tr><td class="td-d">Nta</td><td class="td-fr">Tu (masc.)</td><td class="td-en">You (m.)</td><td class="td-ph">n-ta</td></tr>
+        <tr><td class="td-d">Nti</td><td class="td-fr">Tu (fém.)</td><td class="td-en">You (f.)</td><td class="td-ph">n-ti</td></tr>
+        <tr><td class="td-d">Huwa</td><td class="td-fr">Il / Lui</td><td class="td-en">He / Him</td><td class="td-ph">hu-wa</td></tr>
+        <tr><td class="td-d">Hiya</td><td class="td-fr">Elle</td><td class="td-en">She / Her</td><td class="td-ph">hi-ya</td></tr>
+        <tr><td class="td-d">Hna</td><td class="td-fr">Nous</td><td class="td-en">We</td><td class="td-ph">h-na</td></tr>
+        <tr><td class="td-d">Ntuma</td><td class="td-fr">Vous</td><td class="td-en">You (pl.)</td><td class="td-ph">n-tu-ma</td></tr>
+        <tr><td class="td-d">Huma</td><td class="td-fr">Ils / Elles</td><td class="td-en">They</td><td class="td-ph">hu-ma</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">La négation — Ma … ch</p>
+    <p class="grammar-intro">La négation encadre le verbe, comme en français "ne … pas".</p>
+    <div class="rule-box"><p><strong>Formule :</strong> Ma + verbe + ch &nbsp;·&nbsp; Klit → <strong>Ma klitch</strong> (je n'ai pas mangé)</p></div>
+    <table class="grammar-table">
+      <thead><tr><th>Affirmatif</th><th>Négatif</th><th>Français</th><th>English</th></tr></thead>
+      <tbody>
+        <tr><td class="td-d">3aref</td><td class="td-d">Ma 3arefch</td><td class="td-fr">Je ne sais pas</td><td class="td-en">I don't know</td></tr>
+        <tr><td class="td-d">Fhem</td><td class="td-d">Ma fhemch</td><td class="td-fr">Je n'ai pas compris</td><td class="td-en">I didn't understand</td></tr>
+        <tr><td class="td-d">Ja</td><td class="td-d">Ma jach</td><td class="td-fr">Il n'est pas venu</td><td class="td-en">He didn't come</td></tr>
+        <tr><td class="td-d">Bghit</td><td class="td-d">Ma bghitch</td><td class="td-fr">Je ne veux pas</td><td class="td-en">I don't want</td></tr>
+        <tr><td class="td-d">3andi</td><td class="td-d">Ma 3andich</td><td class="td-fr">Je n'ai pas</td><td class="td-en">I don't have</td></tr>
+        <tr><td class="td-d">Mchit</td><td class="td-d">Ma mchitch</td><td class="td-fr">Je ne suis pas parti</td><td class="td-en">I didn't go</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Les mots interrogatifs</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija</th><th>Français</th><th>English</th><th>Exemple</th></tr></thead>
+      <tbody>
+        <tr><td class="td-d">Chkun ?</td><td class="td-fr">Qui ?</td><td class="td-en">Who?</td><td class="td-ctx">Chkun nta ?</td></tr>
+        <tr><td class="td-d">Chno ?</td><td class="td-fr">Quoi ?</td><td class="td-en">What?</td><td class="td-ctx">Chno kayn ?</td></tr>
+        <tr><td class="td-d">Fin ?</td><td class="td-fr">Où ?</td><td class="td-en">Where?</td><td class="td-ctx">Fin kayn l'amfi ?</td></tr>
+        <tr><td class="td-d">Fach ?</td><td class="td-fr">Quand ?</td><td class="td-en">When?</td><td class="td-ctx">Fach l'exam ?</td></tr>
+        <tr><td class="td-d">Bchhal ?</td><td class="td-fr">Combien ?</td><td class="td-en">How much?</td><td class="td-ctx">Bchhal had chi ?</td></tr>
+        <tr><td class="td-d">Kifach ?</td><td class="td-fr">Comment ?</td><td class="td-en">How?</td><td class="td-ctx">Kifach kayn l-trig ?</td></tr>
+        <tr><td class="td-d">3lach ?</td><td class="td-fr">Pourquoi ?</td><td class="td-en">Why?</td><td class="td-ctx">3lach ma jitich ?</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Avoir — 3and + pronom</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija</th><th>Français</th><th>English</th><th>Phonétique</th></tr></thead>
+      <tbody>
+        <tr><td class="td-d">3andi</td><td class="td-fr">J'ai</td><td class="td-en">I have</td><td class="td-ph">3an-di</td></tr>
+        <tr><td class="td-d">3andak</td><td class="td-fr">Tu as (m.)</td><td class="td-en">You have (m.)</td><td class="td-ph">3an-dak</td></tr>
+        <tr><td class="td-d">3andek</td><td class="td-fr">Tu as (f.)</td><td class="td-en">You have (f.)</td><td class="td-ph">3an-dek</td></tr>
+        <tr><td class="td-d">3andu</td><td class="td-fr">Il a</td><td class="td-en">He has</td><td class="td-ph">3an-du</td></tr>
+        <tr><td class="td-d">3andha</td><td class="td-fr">Elle a</td><td class="td-en">She has</td><td class="td-ph">3an-dha</td></tr>
+        <tr><td class="td-d">3andna</td><td class="td-fr">Nous avons</td><td class="td-en">We have</td><td class="td-ph">3an-dna</td></tr>
+        <tr><td class="td-d">3andkom</td><td class="td-fr">Vous avez</td><td class="td-en">You (pl.) have</td><td class="td-ph">3an-dkom</td></tr>
+        <tr><td class="td-d">3andhom</td><td class="td-fr">Ils / Elles ont</td><td class="td-en">They have</td><td class="td-ph">3an-dhom</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Être — kayn / machi</p>
+    <div class="rule-box"><p>
+      <strong>Ana + adjectif</strong> = Je suis + adjectif ·
+      <strong>Ana mrih</strong> = Je suis fatigué(e)<br>
+      <strong>Kayn cours ?</strong> = Il y a cours ? ·
+      <strong>Ma kaynch cours</strong> = Il n'y a pas cours
+    </p></div>
+  </div>
+</div>
+
+<div class="section" id="s-verbes">
+  <div class="grammar-section">
+    <p class="grammar-title">Présent — préfixe ka-</p>
+    <p class="grammar-intro">Le présent continu se forme avec le préfixe <strong>ka-</strong> devant le verbe.</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija (1ère pers.)</th><th>Français</th><th>English</th><th>Phonétique</th></tr></thead>
+      <tbody id="vPres"></tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Passé simple</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija (passé)</th><th>Français</th><th>English</th><th>Phonétique</th></tr></thead>
+      <tbody id="vPasse"></tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Impératif</p>
+    <table class="grammar-table">
+      <thead><tr><th>Darija</th><th>Français</th><th>English</th><th>Contexte</th></tr></thead>
+      <tbody id="vImp"></tbody>
+    </table>
+  </div>
+  <div class="grammar-section">
+    <p class="grammar-title">Futur — ghadi + verbe</p>
+    <div class="rule-box"><p>
+      <strong>Ghadi nmchi</strong> = Je vais partir · <strong>Ghadi nakol</strong> = Je vais manger<br>
+      <strong>Ghadi nqra</strong> = Je vais étudier · <strong>Ghadi nji</strong> = Je vais venir
+    </p></div>
+  </div>
+</div>
+
+<div class="section" id="s-phrases">
+  <p class="phrase-group-title">En cours · À l'ENSAM</p>
+  <div id="phrasesCours"></div>
+  <p class="phrase-group-title">À la cafétéria · Vie quotidienne</p>
+  <div id="phrasesCafe"></div>
+  <p class="phrase-group-title">Transport · En ville à Meknès</p>
+  <div id="phrasesVille"></div>
+  <p class="phrase-group-title">Urgences · Aide</p>
+  <div id="phrasesUrgence"></div>
+</div>
+
+<div class="section" id="s-dialogues">
+  <div class="tip">Ces dialogues sont enregistrés avec ma voix. Clique sur <strong>▶ Écouter</strong> pour entendre la prononciation.</div>
+  <div id="dialogueContainer"></div>
+</div>
+
+<div class="section" id="s-quiz">
+  <div id="quizBody">
+    <div class="progress-wrap">
+      <div class="progress-meta"><span>Question <span id="qNum">1</span> / 10</span><span>Score <span id="quizScore">0</span></span></div>
+      <div class="progress-track"><div class="progress-fill" id="quizFill" style="width:0%"></div></div>
+    </div>
+    <div class="quiz-q" id="quizQ"></div>
+    <div class="quiz-opts" id="quizOpts"></div>
+    <div class="feedback" id="quizFb"></div>
+    <button class="btn-primary" id="quizNext" onclick="nextQuestion()" disabled>Continuer</button>
+  </div>
+  <div class="done-card" id="quizDone">
+    <div class="done-score" id="finalScore"></div>
+    <div class="done-label">sur 10 — quiz terminé</div>
+    <button class="btn-outline" style="max-width:200px;margin:auto" onclick="resetQuiz()">Recommencer</button>
+  </div>
+</div>
+
+<div class="section" id="s-ecoute">
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Exercice d'écoute</span></div>
+    <div class="progress-track"><div class="progress-fill" id="listenFill" style="width:0%"></div></div>
+  </div>
+  <div class="listen-word" id="listenWord"></div>
+  <div class="listen-ph" id="listenPh"></div>
+  <div class="waveform" id="waveform1"></div>
+  <div class="listen-opts" id="listenOpts"></div>
+  <div class="feedback" id="listenFb" style="margin-top:14px"></div>
+  <button class="btn-primary" style="margin-top:16px" id="listenNext" onclick="nextListen()" disabled>Continuer</button>
+</div>
+
+<div class="section" id="s-traduction">
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Exercice <span id="tNum">1</span> / 10</span><span>Score <span id="tScore">0</span></span></div>
+    <div class="progress-track"><div class="progress-fill" id="tFill" style="width:0%"></div></div>
+  </div>
+  <p style="font-size:11px;letter-spacing:.8px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px">Traduire en Darija</p>
+  <div class="t-word" id="tWord"></div>
+  <div class="t-en" id="tWordEn"></div>
+  <input class="translate-input" type="text" id="tInput" placeholder="Écris la traduction en Darija…">
+  <button class="btn-primary" onclick="checkTranslation()">Valider</button>
+  <div class="feedback" id="tFb" style="margin-top:12px"></div>
+  <button class="btn-outline" style="margin-top:10px" id="tNext" onclick="nextTranslation()" disabled>Continuer</button>
+</div>
+
+<div class="section" id="s-prononciation">
+  <div class="progress-wrap">
+    <div class="progress-meta"><span>Écoute &amp; entraîne ta prononciation</span><span id="recCounter"></span></div>
+    <div class="progress-track"><div class="progress-fill" id="recFill" style="width:0%"></div></div>
+  </div>
+  <div style="text-align:center;padding:8px 0 0">
+    <p style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted2)">Mot à prononcer</p>
+    <div class="rec-word" id="recWord"></div>
+    <div class="rec-ph" id="recPh"></div>
+    <div class="waveform" id="waveform2"></div>
+    <div class="rec-btns">
+      <button class="rbtn-start" id="recListenBtn" onclick="playCreatorAudio()">&#9654; Écouter</button>
+      <button class="rbtn-sec" id="recBtn" onclick="toggleRecording()">&#9679; M'enregistrer</button>
+      <button class="rbtn-sec" id="recPlayBtn" onclick="playRecording()" disabled>Écouter ma voix</button>
+      <button class="rbtn-sec" onclick="nextRecWord()">Mot suivant →</button>
+    </div>
+    <p class="rec-status" id="recStatus">Clique sur "Écouter" pour entendre la prononciation</p>
+  </div>
+</div>
+
+</main>
+
+<script>
+
+// ══════════════════════════════════════════════════════════════════════
+//
+//   🎙️  FICHIERS AUDIO — GUIDE POUR LA CRÉATRICE
+//
+//   STRUCTURE DU DOSSIER sur GitHub :
+//   ├── index.html          ← ce fichier
+//   └── audio/
+//       ├── vocab/          ← un MP3 par mot de vocabulaire
+//       ├── phrases/        ← un MP3 par phrase utile
+//       ├── dialogues/      ← un MP3 par dialogue complet
+//       └── ecoute/         ← un MP3 par mot de l'exercice d'écoute
+//                              (peut être les mêmes fichiers que vocab/)
+//
+//   COMMENT ENREGISTRER :
+//   · iPhone : app "Mémos vocaux" → exporter en M4A puis convertir en MP3
+//   · Android : "Enregistreur vocal" → exporter en MP3 directement
+//   · PC/Mac : Audacity (gratuit) → exporter en MP3
+//   · Parle clairement, à vitesse normale, silence au début et à la fin
+//
+//   NOMMAGE DES FICHIERS : minuscules, pas d'espaces, pas d'accents
+//   Espaces → tirets.  Ex: "Smeh liya" → smeh-liya.mp3
+//
+// ══════════════════════════════════════════════════════════════════════
+
+
+// ─────────────────────────────────────────────────────────────────────
+//  📁 SECTION 1 — VOCABULAIRE
+//  Fichiers à mettre dans : audio/vocab/
+//
+//  Format : 'Mot en Darija (exactement comme dans le code)' : 'audio/vocab/nom-du-fichier.mp3'
+//
+//  ⚠️  La clé DOIT correspondre exactement au mot dans LESSONS ci-dessous
+// ─────────────────────────────────────────────────────────────────────
+const AUDIO_VOCAB = {
+
+  // — Salutations —
+  'Salam':                'audio/vocab/salam.mp3',
+  'Labas ?':              'audio/vocab/labas.mp3',
+  'Labas, al hamdulilah': 'audio/vocab/labas-al-hamdulilah.mp3',
+  'Bslama':               'audio/vocab/bslama.mp3',
+  'Shukran':              'audio/vocab/shukran.mp3',
+  'Marhba':               'audio/vocab/marhba.mp3',
+  'Afak':                 'audio/vocab/afak.mp3',
+  'Smeh liya':            'audio/vocab/smeh-liya.mp3',
+  'Tsbah 3la khir':       'audio/vocab/tsbah-3la-khir.mp3',
+  'Merhba':               'audio/vocab/merhba.mp3',
+
+  // — Université —
+  'Lqism':                'audio/vocab/lqism.mp3',
+  'Ustad':                'audio/vocab/ustad.mp3',
+  'Imtihan':              'audio/vocab/imtihan.mp3',
+  'Dars':                 'audio/vocab/dars.mp3',
+  'Ma fhemtch':           'audio/vocab/ma-fhemtch.mp3',
+  'Mashrou3':             'audio/vocab/mashrou3.mp3',
+  'Maktaba':              'audio/vocab/maktaba.mp3',
+  'Note':                 'audio/vocab/note.mp3',
+  'Wajib':                'audio/vocab/wajib.mp3',
+
+  // — Quotidien —
+  "L'ma":                 'audio/vocab/lma.mp3',
+  'Yakol / Kla':          'audio/vocab/yakol.mp3',
+  'Bchhal ?':             'audio/vocab/bchhal.mp3',
+  'Ghali':                'audio/vocab/ghali.mp3',
+  'Rkhis':                'audio/vocab/rkhis.mp3',
+  'Dar':                  'audio/vocab/dar.mp3',
+  'Souk':                 'audio/vocab/souk.mp3',
+  'Daba':                 'audio/vocab/daba.mp3',
+  'Ghadda':               'audio/vocab/ghadda.mp3',
+  'Lbareh':               'audio/vocab/lbareh.mp3',
+  'Lyoum':                'audio/vocab/lyoum.mp3',
+  'Dima':                 'audio/vocab/dima.mp3',
+
+  // — Nombres —
+  'Wahed':                'audio/vocab/wahed.mp3',
+  'Jouj':                 'audio/vocab/jouj.mp3',
+  'Tlata':                'audio/vocab/tlata.mp3',
+  'Reb3a':                'audio/vocab/reb3a.mp3',
+  'Khamsa':               'audio/vocab/khamsa.mp3',
+  'Setta':                'audio/vocab/setta.mp3',
+  'Seb3a':                'audio/vocab/seb3a.mp3',
+  'Tmnya':                'audio/vocab/tmnya.mp3',
+  'Tes3a':                'audio/vocab/tes3a.mp3',
+  '3achra':               'audio/vocab/3achra.mp3',
+  '3ichrin':              'audio/vocab/3ichrin.mp3',
+  'Khemsin':              'audio/vocab/khemsin.mp3',
+  'Miya':                 'audio/vocab/miya.mp3',
+  'Alf':                  'audio/vocab/alf.mp3',
+
+  // — Émotions —
+  'Ferhan':               'audio/vocab/ferhan.mp3',
+  'Mqalaq':               'audio/vocab/mqalaq.mp3',
+  '3yyan':                'audio/vocab/3yyan.mp3',
+  'M3assab':              'audio/vocab/m3assab.mp3',
+  'Fiya jo3':             'audio/vocab/fiya-jo3.mp3',
+  'Fiya l3tch':           'audio/vocab/fiya-l3tch.mp3',
+  'Mzyan !':              'audio/vocab/mzyan.mp3',
+  'Khayeb':               'audio/vocab/khayeb.mp3',
+  'Twedert':              'audio/vocab/twedert.mp3',
+
+  // — Meknès —
+  'Mdina':                'audio/vocab/mdina.mp3',
+  'Jama3':                'audio/vocab/jama3.mp3',
+  'Hammam':               'audio/vocab/hammam.mp3',
+  'Mahatta':              'audio/vocab/mahatta.mp3',
+  'Taxi':                 'audio/vocab/taxi.mp3',
+  'Tobis':                'audio/vocab/tobis.mp3',
+  'Sbitar':               'audio/vocab/sbitar.mp3',
+  'Farmasian':            'audio/vocab/farmasian.mp3',
+  'Souq':                 'audio/vocab/souq.mp3',
+
+};
+
+
+// ─────────────────────────────────────────────────────────────────────
+//  📁 SECTION 2 — PHRASES UTILES
+//  Fichiers à mettre dans : audio/phrases/
+//
+//  Groupe "cours" = phrases de la section "En cours / À l'ENSAM"
+//  Groupe "cafe"  = phrases de la section "Cafétéria / Vie quotidienne"
+//  Groupe "ville" = phrases de la section "Transport / En ville"
+//  Groupe "urgence" = phrases de la section "Urgences"
+// ─────────────────────────────────────────────────────────────────────
+const AUDIO_PHRASES = {
+
+  // — En cours / À l'ENSAM —
+  "Fin l'amfi ?":              'audio/phrases/fin-lamfi.mp3',
+  "3tini l'cours afak":        'audio/phrases/3tini-lcours-afak.mp3',
+  "Imta l'imtihan ?":          'audio/phrases/imta-limtihan.mp3',
+  'Ma fhemtch, eawd afak':     'audio/phrases/ma-fhemtch-eawd.mp3',
+  '3andi sual':                'audio/phrases/3andi-sual.mp3',
+  'Shno sujé dyal projet?':    'audio/phrases/shno-suje-dyal-projet.mp3',
+  'Wach kayn cours ghadda ?':  'audio/phrases/wach-kayn-cours-ghadda.mp3',
+  'Bghit ntqeyyed f ENSAM':    'audio/phrases/bghit-ntqeyyed-f-ensam.mp3',
+  'Fin maktab l scolarité ?':  'audio/phrases/fin-maktab-scolarite.mp3',
+
+  // — Cafétéria / Vie quotidienne —
+  'Bchhal had chi ?':          'audio/phrases/bchhal-had-chi.mp3',
+  '3tini atay b na3na3':       'audio/phrases/3tini-atay-b-na3na3.mp3',
+  '3tini sandwich afak':       'audio/phrases/3tini-sandwich-afak.mp3',
+  "Fein t'toilette ?":         'audio/phrases/fein-ttoi lette.mp3',
+  'Bnin bezzaf !':             'audio/phrases/bnin-bezzaf.mp3',
+  'Bssahha !':                 'audio/phrases/bssahha.mp3',
+  'Nta mnin ?':                'audio/phrases/nta-mnin.mp3',
+  'Ashmen blad ?':             'audio/phrases/ashmen-blad.mp3',
+  'Ashmen mdina ?':            'audio/phrases/ashmen-mdina.mp3',
+  'Bghit nkhdem meak':         'audio/phrases/bghit-nkhdem-meak.mp3',
+  '3afak ghir shwiya':         'audio/phrases/3afak-ghir-shwiya.mp3',
+
+  // — Transport / En ville —
+  'Fin kayn station taxi ?':   'audio/phrases/fin-kayn-station-taxi.mp3',
+  'Bghit nmchi l mdina':       'audio/phrases/bghit-nmchi-l-mdina.mp3',
+  "Bchhal l lENSAM ?":         'audio/phrases/bchhal-l-lensam.mp3',
+  '3afak sir ghir bshwiya':    'audio/phrases/3afak-sir-ghir-bshwiya.mp3',
+  'Wqef hnaya':                'audio/phrases/wqef-hnaya.mp3',
+  'Fin kayn farmasian ?':      'audio/phrases/fin-kayn-farmasian.mp3',
+  'Bghit lcode dyal wifi':     'audio/phrases/bghit-lcode-dyal-wifi.mp3',
+  'Fin kayna mahatta ?':       'audio/phrases/fin-kayna-mahatta.mp3',
+
+  // — Urgences —
+  '3awni afak !':              'audio/phrases/3awni-afak.mp3',
+  '3ayyet l police':           'audio/phrases/3ayyet-l-police.mp3',
+  'Sbitar fin ?':              'audio/phrases/sbitar-fin.mp3',
+  'Ana mrid':                  'audio/phrases/ana-mrid.mp3',
+  'Derni rassi':               'audio/phrases/derni-rassi.mp3',
+  'Ma 3areftch triq':          'audio/phrases/ma-3areftch-triq.mp3',
+  'Srqoli portable':           'audio/phrases/srqoli-portable.mp3',
+
+};
+
+
+// ─────────────────────────────────────────────────────────────────────
+//  📁 SECTION 3 — DIALOGUES
+//  Fichiers à mettre dans : audio/dialogues/
+//
+//  Un fichier MP3 = tout le dialogue lu d'un bout à l'autre
+//  (enregistre les deux voix toi-même ou avec un ami)
+// ─────────────────────────────────────────────────────────────────────
+const AUDIO_DIALOGUES = {
+  0: 'audio/dialogues/dialogue-0-premier-jour.mp3',       // Premier jour à l'ENSAM
+  1: 'audio/dialogues/dialogue-1-trouver-salle.mp3',      // Trouver une salle
+  2: 'audio/dialogues/dialogue-2-cafeteria.mp3',          // À la cafétéria
+  3: 'audio/dialogues/dialogue-3-taxi.mp3',               // Prendre un taxi
+  4: 'audio/dialogues/dialogue-4-revisions.mp3',          // Révisions avant l'examen
+};
+
+
+// ─────────────────────────────────────────────────────────────────────
+//  📁 SECTION 4 — EXERCICE D'ÉCOUTE
+//  Fichiers à mettre dans : audio/ecoute/
+//
+//  💡 ASTUCE : Tu peux simplement copier les mêmes fichiers que audio/vocab/
+//  si tu veux la même voix. Ou enregistre des versions différentes
+//  (plus rapide, avec bruit de fond, etc.) pour rendre l'exercice plus réaliste.
+//
+//  Même format que AUDIO_VOCAB — la clé = mot Darija exact
+// ─────────────────────────────────────────────────────────────────────
+const AUDIO_ECOUTE = {
+
+  // — Salutations —
+  'Salam':                'audio/ecoute/salam.mp3',
+  'Labas ?':              'audio/ecoute/labas.mp3',
+  'Labas, al hamdulilah': 'audio/ecoute/labas-al-hamdulilah.mp3',
+  'Bslama':               'audio/ecoute/bslama.mp3',
+  'Shukran':              'audio/ecoute/shukran.mp3',
+  'Marhba':               'audio/ecoute/marhba.mp3',
+  'Afak':                 'audio/ecoute/afak.mp3',
+  'Smeh liya':            'audio/ecoute/smeh-liya.mp3',
+  'Tsbah 3la khir':       'audio/ecoute/tsbah-3la-khir.mp3',
+  'Merhba':               'audio/ecoute/merhba.mp3',
+
+  // — Université —
+  'Lqism':                'audio/ecoute/lqism.mp3',
+  'Ustad':                'audio/ecoute/ustad.mp3',
+  'Imtihan':              'audio/ecoute/imtihan.mp3',
+  'Dars':                 'audio/ecoute/dars.mp3',
+  'Ma fhemtch':           'audio/ecoute/ma-fhemtch.mp3',
+  'Mashrou3':             'audio/ecoute/mashrou3.mp3',
+  'Maktaba':              'audio/ecoute/maktaba.mp3',
+  'Note':                 'audio/ecoute/note.mp3',
+  'Wajib':                'audio/ecoute/wajib.mp3',
+
+  // — Quotidien —
+  "L'ma":                 'audio/ecoute/lma.mp3',
+  'Yakol / Kla':          'audio/ecoute/yakol.mp3',
+  'Bchhal ?':             'audio/ecoute/bchhal.mp3',
+  'Ghali':                'audio/ecoute/ghali.mp3',
+  'Rkhis':                'audio/ecoute/rkhis.mp3',
+  'Dar':                  'audio/ecoute/dar.mp3',
+  'Souk':                 'audio/ecoute/souk.mp3',
+  'Daba':                 'audio/ecoute/daba.mp3',
+  'Ghadda':               'audio/ecoute/ghadda.mp3',
+  'Lbareh':               'audio/ecoute/lbareh.mp3',
+  'Lyoum':                'audio/ecoute/lyoum.mp3',
+  'Dima':                 'audio/ecoute/dima.mp3',
+
+  // — Nombres —
+  'Wahed':                'audio/ecoute/wahed.mp3',
+  'Jouj':                 'audio/ecoute/jouj.mp3',
+  'Tlata':                'audio/ecoute/tlata.mp3',
+  'Reb3a':                'audio/ecoute/reb3a.mp3',
+  'Khamsa':               'audio/ecoute/khamsa.mp3',
+  'Setta':                'audio/ecoute/setta.mp3',
+  'Seb3a':                'audio/ecoute/seb3a.mp3',
+  'Tmnya':                'audio/ecoute/tmnya.mp3',
+  'Tes3a':                'audio/ecoute/tes3a.mp3',
+  '3achra':               'audio/ecoute/3achra.mp3',
+  '3ichrin':              'audio/ecoute/3ichrin.mp3',
+  'Khemsin':              'audio/ecoute/khemsin.mp3',
+  'Miya':                 'audio/ecoute/miya.mp3',
+  'Alf':                  'audio/ecoute/alf.mp3',
+
+  // — Émotions —
+  'Ferhan':               'audio/ecoute/ferhan.mp3',
+  'Mqalaq':               'audio/ecoute/mqalaq.mp3',
+  '3yyan':                'audio/ecoute/3yyan.mp3',
+  'M3assab':              'audio/ecoute/m3assab.mp3',
+  'Fiya jo3':             'audio/ecoute/fiya-jo3.mp3',
+  'Fiya l3tch':           'audio/ecoute/fiya-l3tch.mp3',
+  'Mzyan !':              'audio/ecoute/mzyan.mp3',
+  'Khayeb':               'audio/ecoute/khayeb.mp3',
+  'Twedert':              'audio/ecoute/twedert.mp3',
+
+  // — Meknès —
+  'Mdina':                'audio/ecoute/mdina.mp3',
+  'Jama3':                'audio/ecoute/jama3.mp3',
+  'Hammam':               'audio/ecoute/hammam.mp3',
+  'Mahatta':              'audio/ecoute/mahatta.mp3',
+  'Taxi':                 'audio/ecoute/taxi.mp3',
+  'Tobis':                'audio/ecoute/tobis.mp3',
+  'Sbitar':               'audio/ecoute/sbitar.mp3',
+  'Farmasian':            'audio/ecoute/farmasian.mp3',
+  'Souq':                 'audio/ecoute/souq.mp3',
+
+};
+
+
+// ══════════════════════════════════════════════════════════════════════
+//  DONNÉES — NE PAS MODIFIER (sauf pour ajouter du contenu)
+// ══════════════════════════════════════════════════════════════════════
+
+const LESSONS = {
+  salutations: {
+    label: 'Salutations',
+    tip: "En Darija, \"Salam\" s'utilise à toute heure. \"Labas ?\" est la salutation la plus courante entre amis.",
+    words: [
+      {fr:'Bonjour',                    en:'Hello',            d:'Salam',                ar:'سلام',             ph:'sa-lam'},
+      {fr:'Comment ça va ?',            en:'How are you?',     d:'Labas ?',              ar:'لاباس؟',           ph:'la-bas'},
+      {fr:'Ça va bien, louange à dieu', en:"I'm fine, thank god", d:'Labas, al hamdulilah', ar:'لاباس الحمد الله', ph:'la-bas al-hamdu-li-lah'},
+      {fr:'Au revoir',                  en:'Goodbye',          d:'Bslama',               ar:'بسلامة',           ph:'b-sla-ma'},
+      {fr:'Merci',                      en:'Thank you',        d:'Shukran',              ar:'شكرا',             ph:'chok-ran'},
+      {fr:'De rien',                    en:"You're welcome",   d:'Marhba',               ar:'مرحبا',            ph:'mar-h-ba'},
+      {fr:"S'il te plaît",              en:'Please',           d:'Afak',                 ar:'عفاك',             ph:'a-fak'},
+      {fr:'Excusez-moi',                en:'Excuse me',        d:'Smeh liya',            ar:'سمح ليا',          ph:'smeh-li-ya'},
+      {fr:'Bonne nuit',                 en:'Good night',       d:'Tsbah 3la khir',       ar:'تصباح على خير',    ph:'tsbah-ela-khir'},
+      {fr:'Bienvenue',                  en:'Welcome',          d:'Merhba',               ar:'مرحبا',            ph:'mer-hba'},
+    ]
+  },
+  universite: {
+    label: 'Université',
+    tip: "À l'ENSAM Meknès les cours sont en français, mais les échanges quotidiens entre étudiants se font en Darija.",
+    words: [
+      {fr:'La salle de cours',          en:'Classroom',              d:'Lqism',     ar:'لقيسم',     ph:'el-qi-sseum'},
+      {fr:'Le professeur',              en:'Professor',              d:'Ustad',     ar:'الأستاذ',   ph:'us-tad'},
+      {fr:"L'examen",                   en:'Exam',                   d:'Imtihan',   ar:'الامتحان',  ph:'im-ti-han'},
+      {fr:'La leçon',                   en:'Lesson',                 d:'Dars',      ar:'الدرس',     ph:'dars'},
+      {fr:"Je n'ai pas compris",        en:"I didn't understand",    d:'Ma fhemtch',ar:'ما فهمتش',  ph:'ma-fhem-ch'},
+      {fr:'Le projet',                  en:'Project / Coursework',   d:'Mashrou3',  ar:'المشروع',   ph:'mach-rou3'},
+      {fr:'La bibliothèque',            en:'Library',                d:'Maktaba',   ar:'المكتبة',   ph:'mak-ta-ba'},
+      {fr:'La note',                    en:'Grade',                  d:'Note',      ar:'النقطة',    ph:'no-q-TTa'},
+      {fr:'Le devoir',                  en:'Homework',               d:'Wajib',     ar:'الواجب',    ph:'wa-jib'},
+    ]
+  },
+  quotidien: {
+    label: 'Quotidien',
+    tip: 'Meknès est une ville impériale. Les Meknassis ont un Darija légèrement plus traditionnel que Casablanca.',
+    words: [
+      {fr:"L'eau",              en:'Water',     d:"L'ma",        ar:'الماء',    ph:'l-ma'},
+      {fr:'Manger',             en:'To eat',    d:'Yakol / Kla', ar:'كلا',      ph:'ya-kol'},
+      {fr:'Combien ça coûte ?', en:'How much?', d:'Bchhal ?',    ar:'بشحال؟',   ph:'b-chal'},
+      {fr:'Cher',               en:'Expensive', d:'Ghali',       ar:'غالي',     ph:'gha-li'},
+      {fr:'Pas cher',           en:'Cheap',     d:'Rkhis',       ar:'رخيص',     ph:'r-khis'},
+      {fr:'La maison',          en:'House',     d:'Dar',         ar:'الدار',    ph:'dar'},
+      {fr:'Le marché',          en:'Market',    d:'Souk',        ar:'السوق',    ph:'souk'},
+      {fr:'Maintenant',         en:'Now',       d:'Daba',        ar:'دابا',     ph:'da-ba'},
+      {fr:'Demain',             en:'Tomorrow',  d:'Ghadda',      ar:'غدا',      ph:'gha-dda'},
+      {fr:'Hier',               en:'Yesterday', d:'Lbareh',      ar:'البارح',   ph:'l-ba-reh'},
+      {fr:"Aujourd'hui",        en:'Today',     d:'Lyoum',       ar:'اليوم',    ph:'l-youm'},
+      {fr:'Toujours',           en:'Always',    d:'Dima',        ar:'ديما',     ph:'di-ma'},
+    ]
+  },
+  nombres: {
+    label: 'Nombres',
+    tip: 'Les Marocains mélangent souvent les chiffres français et Darija selon le contexte.',
+    words: [
+      {fr:'Un',        en:'One',      d:'Wahed',   ar:'واحد',  ph:'wa-hed'},
+      {fr:'Deux',      en:'Two',      d:'Jouj',    ar:'جوج',   ph:'jouj'},
+      {fr:'Trois',     en:'Three',    d:'Tlata',   ar:'تلاتة', ph:'tla-ta'},
+      {fr:'Quatre',    en:'Four',     d:'Reb3a',   ar:'ربعة',  ph:'reb-ea'},
+      {fr:'Cinq',      en:'Five',     d:'Khamsa',  ar:'خمسة',  ph:'kham-sa'},
+      {fr:'Six',       en:'Six',      d:'Setta',   ar:'ستة',   ph:'set-ta'},
+      {fr:'Sept',      en:'Seven',    d:'Seb3a',   ar:'سبعة',  ph:'seb-ea'},
+      {fr:'Huit',      en:'Eight',    d:'Tmnya',   ar:'تمنية', ph:'te-men-ya'},
+      {fr:'Neuf',      en:'Nine',     d:'Tes3a',   ar:'تسعود', ph:'tes-eoud'},
+      {fr:'Dix',       en:'Ten',      d:'3achra',  ar:'عشرة',  ph:'each-ra'},
+      {fr:'Vingt',     en:'Twenty',   d:'3ichrin', ar:'عشرين', ph:'each-rin'},
+      {fr:'Cinquante', en:'Fifty',    d:'Khemsin', ar:'خمسين', ph:'khem-ssin'},
+      {fr:'Cent',      en:'Hundred',  d:'Miya',    ar:'مية',   ph:'mi-ya'},
+      {fr:'Mille',     en:'Thousand', d:'Alf',     ar:'ألف',   ph:'alf'},
+    ]
+  },
+  emotions: {
+    label: 'Émotions',
+    tip: "Exprimer ses émotions en Darija t'aidera à créer des liens rapides avec tes camarades marocains.",
+    words: [
+      {fr:'Heureux / Content', en:'Happy',        d:'Ferhan',    ar:'فرحان',  ph:'fer-han'},
+      {fr:'Triste',            en:'Sad',           d:'Mqalaq',    ar:'مقلق',   ph:'m-qeu-laq'},
+      {fr:'Fatigué',           en:'Tired',         d:'3yyan',     ar:'عيان',   ph:'3-yan'},
+      {fr:'En colère',         en:'Angry',         d:'M3assab',   ar:'معسب',   ph:'m-ea-ssab'},
+      {fr:"J'ai faim",         en:"I'm hungry",    d:'Fiya jo3',  ar:'فيا جووع', ph:'fi-ya jou-ea'},
+      {fr:"J'ai soif",         en:"I'm thirsty",   d:'Fiya l3tch',ar:'فيا لعطش', ph:'fi-ya le-eaTT-ech'},
+      {fr:"C'est bien !",      en:"It's good!",    d:'Mzyan !',   ar:'مزيان!', ph:'mz-yan'},
+      {fr:"C'est nul",         en:"It's bad",      d:'Khayeb',    ar:'خايب',   ph:'kha-yeb'},
+      {fr:'Je suis désolé',    en:"I'm sorry",     d:'Smeh liya', ar:'سمح ليا', ph:'smeh-li-ya'},
+      {fr:'Je suis perdu',     en:"I'm lost",      d:'Twedert',   ar:'توضرت',  ph:'twe-dert'},
+    ]
+  },
+  meknes: {
+    label: 'Meknès',
+    tip: "Meknès est la 4e ville impériale du Maroc, à 60 km de Fès. Connais ces lieux pour mieux t'intégrer.",
+    words: [
+      {fr:'La médina',    en:'Old city',      d:'Mdina',     ar:'المدينة',    ph:'m-di-na'},
+      {fr:'La mosquée',   en:'Mosque',        d:'Jama3',     ar:'الجامع',     ph:'ja-ma3'},
+      {fr:'Le hammam',    en:'Public bath',   d:'Hammam',    ar:'الحمام',     ph:'ham-mam'},
+      {fr:'La gare',      en:'Train station', d:'Mahatta',   ar:'المحطة',     ph:'ma-hat-ta'},
+      {fr:'Le taxi',      en:'Taxi',          d:'Taxi',      ar:'الطاكسي',    ph:'TTak-si'},
+      {fr:'Le bus',       en:'Bus',           d:'Tobis',     ar:'الطوبيس',    ph:'to-bis'},
+      {fr:"L'hôpital",    en:'Hospital',      d:'Sbitar',    ar:'السبيطار',   ph:'sbi-tar'},
+      {fr:'La pharmacie', en:'Pharmacy',      d:'Farmasian', ar:'الفرماسيان', ph:'far-ma-sian'},
+      {fr:'Le souk',      en:'Market',        d:'Souq',      ar:'سوق',        ph:'souk'},
+    ]
+  },
+};
+
+const VERBES_PRES = [
+  {d:'Kanji / Kanmchi', fr:'Je viens / Je vais',  en:'I come / I go',       ph:'kan-ji / kan-mchi'},
+  {d:'Kanakul',         fr:'Je mange',             en:'I eat',               ph:'kan-kul'},
+  {d:'Kanshreb',        fr:'Je bois',              en:'I drink',             ph:'kan-shreb'},
+  {d:'Kan3ref',         fr:'Je sais',              en:'I know',              ph:'kan-3ref'},
+  {d:'Kanfhem',         fr:'Je comprends',         en:'I understand',        ph:'kan-fhem'},
+  {d:'Kankteb',         fr:"J'écris",              en:'I write',             ph:'kan-kteb'},
+  {d:'Kanqra',          fr:"J'étudie / Je lis",    en:'I study / I read',    ph:'kan-qra'},
+  {d:'Kanhder',         fr:'Je parle',             en:'I speak',             ph:'kan-hder'},
+  {d:'Kansme3',         fr:"J'écoute",             en:'I listen',            ph:'kan-sme3'},
+  {d:'Kanshuf',         fr:'Je regarde',           en:'I watch / I see',     ph:'kan-chuf'},
+  {d:'Kanbghi',         fr:"Je veux / J'aime",     en:'I want / I like',     ph:'kan-bghi'},
+  {d:'Kankhdem',        fr:'Je travaille',         en:'I work',              ph:'kan-kh-dem'},
+  {d:'Kansken',         fr:"J'habite",             en:'I live',              ph:'kan-sa-ken'},
+  {d:'Kannaa3s',        fr:'Je dors',              en:'I sleep',             ph:'kan-na3s'},
+  {d:'Kanwsl',          fr:"J'arrive / Je rentre", en:'I arrive',            ph:'kan-wsel'},
+];
+
+const VERBES_PASSE = [
+  {d:'Jit',     fr:'Je suis venu',    en:'I came',       ph:'jit'},
+  {d:'Mchit',   fr:'Je suis parti',   en:'I went',       ph:'mchit'},
+  {d:'Klit',    fr:"J'ai mangé",      en:'I ate',        ph:'klit'},
+  {d:'Shrebt',  fr:"J'ai bu",         en:'I drank',      ph:'shrebt'},
+  {d:'Fhemt',   fr:"J'ai compris",    en:'I understood', ph:'fhemt'},
+  {d:'Ktebt',   fr:"J'ai écrit",      en:'I wrote',      ph:'ktebt'},
+  {d:'Qrit',    fr:"J'ai étudié",     en:'I studied',    ph:'qrit'},
+  {d:'Hdert',   fr:"J'ai parlé",      en:'I spoke',      ph:'hdert'},
+  {d:'Bghit',   fr:"J'ai voulu",      en:'I wanted',     ph:'bghit'},
+  {d:'Khdemt',  fr:"J'ai travaillé",  en:'I worked',     ph:'khdemt'},
+  {d:'Na3ast',  fr:"J'ai dormi",      en:'I slept',      ph:'na3-ast'},
+  {d:'Wslt',    fr:'Je suis arrivé',  en:'I arrived',    ph:'wselt'},
+];
+
+const VERBES_IMP = [
+  {d:'Aji !',         fr:'Viens !',          en:'Come!',        ctx:"Appeler quelqu'un"},
+  {d:"Sir !",         fr:'Va-t\'en !',       en:'Go!',          ctx:"Dire à quelqu'un de partir"},
+  {d:'Eatini !',      fr:'Donne-moi !',      en:'Give me!',     ctx:'Demander quelque chose'},
+  {d:'Eawd !',        fr:'Répète !',         en:'Repeat!',      ctx:'En cours'},
+  {d:'Shuf !',        fr:'Regarde !',        en:'Look!',        ctx:"Attirer l'attention"},
+  {d:'Sme3 !',        fr:'Écoute !',         en:'Listen!',      ctx:"Attirer l'attention"},
+  {d:'Khod !',        fr:'Prends !',         en:'Take it!',     ctx:'Offrir quelque chose'},
+  {d:'Sir Fhalk !',   fr:'Va-t\'en !',       en:'Go away!',     ctx:'Faire fuir'},
+  {d:'Wqef !',        fr:'Arrête-toi !',     en:'Stop!',        ctx:'Transport / Urgence'},
+  {d:'Dwi bshwiya !', fr:'Parle lentement !',en:'Speak slowly!',ctx:'Quand tu ne comprends pas'},
+];
+
+const PHRASES = {
+  cours: [
+    {d:"Fin l'amfi ?",              fr:"Où est l'amphithéâtre ?",              en:'Where is the lecture hall?',      ctx:'Se repérer'},
+    {d:"3tini l'cours afak",        fr:"Donne-moi le cours s'il te plaît",     en:'Can I get your notes please?',    ctx:'Demander les notes'},
+    {d:"Imta l'imtihan ?",          fr:"Quand est l'examen ?",                 en:'When is the exam?',               ctx:'Planning'},
+    {d:'Ma fhemtch, eawd afak',     fr:"Je n'ai pas compris, répète",          en:"I didn't get it, repeat please",  ctx:'En cours'},
+    {d:'3andi sual',                fr:"J'ai une question",                    en:'I have a question',               ctx:'Se renseigner'},
+    {d:'Shno sujé dyal projet?',    fr:'Quel est le sujet du projet ?',        en:"What's the project topic?",       ctx:'Projet / TP'},
+    {d:'Wach kayn cours ghadda ?',  fr:"Est-ce qu'il y a cours demain ?",      en:'Is there class tomorrow?',        ctx:'Planning'},
+    {d:'Bghit ntqeyyed f ENSAM',    fr:"Je veux m'inscrire à l'ENSAM",        en:'I want to enroll at ENSAM',       ctx:'Administration'},
+    {d:'Fin maktab l scolarité ?',  fr:'Où est le bureau de scolarité ?',      en:"Where is the registrar's office?",ctx:'Administration'},
+  ],
+  cafe: [
+    {d:'Bchhal had chi ?',          fr:'Combien ça coûte ?',                   en:'How much is this?',               ctx:'Cafétéria / Souk'},
+    {d:'3tini atay b na3na3',       fr:"Un thé à la menthe s'il te plaît",     en:'Give me a mint tea',              ctx:'Commander'},
+    {d:'3tini sandwich afak',       fr:"Un sandwich s'il te plaît",            en:'A sandwich please',               ctx:'Commander'},
+    {d:"Fein t'toilette ?",         fr:'Où sont les toilettes ?',              en:'Where is the bathroom?',          ctx:'Se repérer'},
+    {d:'Bnin bezzaf !',             fr:"C'est vraiment délicieux !",           en:"It's really delicious!",          ctx:'Approbation'},
+    {d:'Bssahha !',                 fr:'Bon appétit !',                        en:'Enjoy your meal!',                ctx:'En mangeant'},
+    {d:'Nta mnin ?',                fr:"Tu viens d'où ?",                      en:'Where are you from?',             ctx:'Se présenter'},
+    {d:'Ashmen blad ?',             fr:'Quel pays ?',                          en:'Which country?',                  ctx:'Connaissance'},
+    {d:'Ashmen mdina ?',            fr:'Quelle ville ?',                       en:'Which city?',                     ctx:'Connaissance'},
+    {d:'Bghit nkhdem meak',         fr:'Je veux travailler avec toi',          en:'I want to work with you',         ctx:'Projet de groupe'},
+    {d:'3afak ghir shwiya',         fr:"Juste un peu s'il te plaît",           en:'Just a little please',            ctx:'Commander'},
+  ],
+  ville: [
+    {d:'Fin kayn station taxi ?',   fr:"Où est la station de taxi ?",          en:"Where's the taxi stand?",         ctx:'Transport'},
+    {d:'Bghit nmchi l mdina',       fr:"Je veux aller à la médina",            en:'I want to go to the medina',      ctx:'Direction'},
+    {d:"Bchhal l lENSAM ?",         fr:"Combien pour aller à l'ENSAM ?",       en:'How much to ENSAM?',              ctx:'Taxi'},
+    {d:'3afak sir ghir bshwiya',    fr:"S'il te plaît, roule doucement",       en:'Please drive slowly',             ctx:'Taxi'},
+    {d:'Wqef hnaya',                fr:'Arrête-toi ici',                       en:'Stop here',                       ctx:'Taxi / Bus'},
+    {d:'Fin kayn farmasian ?',      fr:"Où est la pharmacie ?",                en:'Where is the pharmacy?',          ctx:'Santé'},
+    {d:'Bghit lcode dyal wifi',     fr:'Je cherche le mot de passe WiFi',      en:'I need the WiFi password',        ctx:'Café'},
+    {d:'Fin kayna mahatta ?',       fr:"Où est la gare ?",                     en:'Where is the train station?',     ctx:'Transport'},
+  ],
+  urgence: [
+    {d:'3awni afak !',              fr:"Aide-moi s'il te plaît !",             en:'Help me please!',                 ctx:'Urgence'},
+    {d:'3ayyet l police',           fr:'Appelle la police',                    en:'Call the police',                 ctx:'Urgence'},
+    {d:'Sbitar fin ?',              fr:"Où est l'hôpital ?",                   en:'Where is the hospital?',          ctx:'Santé'},
+    {d:'Ana mrid',                  fr:'Je suis malade',                       en:'I am sick',                       ctx:'Santé'},
+    {d:'Derni rassi',               fr:"J'ai mal à la tête",                   en:'I have a headache',               ctx:'Santé'},
+    {d:'Ma 3areftch triq',          fr:'Je me suis perdu',                     en:"I'm lost",                        ctx:'Navigation'},
+    {d:'Srqoli portable',           fr:"On m'a volé mon téléphone",            en:'My phone was stolen',             ctx:'Urgence'},
+  ],
+};
+
+const DIALOGUES = [
+  {
+    title: "Premier jour à l'ENSAM",
+    meta: '2 personnes · Salutations',
+    lines: [
+      {sp:'A', name:'Oussama', d:'Salam, labas ?',               fr:'Bonjour, ça va ?',              en:'Hey, how are you?'},
+      {sp:'B', name:'Toi',     d:"Labas, hamdulilah. Nta mnin ?",fr:"Ça va merci. Tu viens d'où ?",  en:"Fine thanks. Where are you from?"},
+      {sp:'A', name:'Oussama', d:'Ana mn Meknès. Nti ?',         fr:'Je suis de Meknès. Et toi ?',   en:"I'm from Meknès. You?"},
+      {sp:'B', name:'Toi',     d:'Ana mn Nigeria. Bghit nteallem Darija.', fr:'Je suis du Nigeria. Je veux apprendre le Darija.', en:"I'm from Nigeria. I want to learn Darija."},
+      {sp:'A', name:'Oussama', d:"Mzyan ! Nqder n3awnek bezzaf.",fr:"Super ! Je peux beaucoup t'aider.", en:'Great! I can help you a lot.'},
+      {sp:'B', name:'Toi',     d:'Shukran bezzaf ! Nta waer.',   fr:'Merci beaucoup ! Tu es cool.',  en:"Thank you so much! You're cool."},
+    ]
+  },
+  {
+    title: "Trouver une salle à l'ENSAM",
+    meta: '2 personnes · Université',
+    lines: [
+      {sp:'B', name:'Toi',      d:'Smeh liya, fin kayn amfi 3 ?',        fr:"Excusez-moi, où est l'amphi 3 ?",    en:'Excuse me, where is lecture hall 3?'},
+      {sp:'A', name:'Étudiant', d:'Amfi 3 ? Siri nichan, w dori eala lysser.', fr:"L'amphi 3 ? Tout droit, à gauche.", en:'Lecture hall 3? Straight ahead, turn left.'},
+      {sp:'B', name:'Toi',      d:'Shukran. Imta aybda lcours ?',         fr:'Merci. Le cours commence à quelle heure ?', en:'Thanks. What time does the class start?'},
+      {sp:'A', name:'Étudiant', d:'Kaybda mea 10h30.',                    fr:'Ça commence à 10h30.',               en:'It starts at 10:30am.'},
+      {sp:'B', name:'Toi',      d:'Wili teatelt ! Chokran bezzaf.',       fr:'Ah mince je suis en retard ! Merci beaucoup.', en:"Oh no I'm late! Thanks a lot."},
+      {sp:'A', name:'Étudiant', d:'Marhba, Lah ywefeq !',                 fr:'De rien, bonne chance !',            en:'No worries, good luck!'},
+    ]
+  },
+  {
+    title: "À la cafétéria de l'ENSAM",
+    meta: '2 personnes · Vie quotidienne',
+    lines: [
+      {sp:'B', name:'Toi',     d:'3tini atay b na3na3 afak.',   fr:"Un thé à la menthe s'il te plaît.", en:'A mint tea please.'},
+      {sp:'A', name:'Vendeur', d:'B sukkar wella blach ?',       fr:'Avec ou sans sucre ?',              en:'With or without sugar?'},
+      {sp:'B', name:'Toi',     d:'Ghir shwiya d sukkar afak.',   fr:"Peu de sucre s'il te plaît.",       en:'A little sugar please.'},
+      {sp:'A', name:'Vendeur', d:'Wach bghiti chi haja khra ?',  fr:'Tu veux autre chose ?',             en:'Do you want anything else?'},
+      {sp:'B', name:'Toi',     d:'La, shukran. Bchhal kollchi ?',fr:"Non merci. C'est combien en tout ?",en:'No thanks. How much is it all?'},
+      {sp:'A', name:'Vendeur', d:'5 dirhams.',                   fr:'5 dirhams.',                        en:'5 dirhams.'},
+    ]
+  },
+  {
+    title: 'Prendre un taxi à Meknès',
+    meta: '2 personnes · Transport',
+    lines: [
+      {sp:'B', name:'Toi',       d:"3afak, lENSAM ?",                         fr:"S'il te plaît, à l'ENSAM ?",       en:'Please, to ENSAM?'},
+      {sp:'A', name:'Chauffeur', d:'Iyyeh, rkbi.',                              fr:'Oui, monte.',                      en:'Yes, get in.'},
+      {sp:'B', name:'Toi',       d:'Bchhal ?',                                  fr:'Combien ?',                        en:'How much?'},
+      {sp:'A', name:'Chauffeur', d:'15 dirhams.',                               fr:'15 dirhams.',                      en:'15 dirhams.'},
+      {sp:'B', name:'Toi',       d:"Sir bshwiya afak, ma kanearfch Meknès mzyan.", fr:"Vas-y doucement, je ne connais pas bien Meknès.", en:"Go slowly please, I don't know Meknès well."},
+      {sp:'A', name:'Chauffeur', d:'Makayn moshkil, ana nkhlek tshoufi Meknès.', fr:'Pas de problème, je vais te faire découvrir Meknès.', en:"No problem, I'll show you Meknès."},
+    ]
+  },
+  {
+    title: "Révisions avant l'examen",
+    meta: '2 personnes · Université',
+    lines: [
+      {sp:'A', name:'Aya', d:"Labas, wach 3andek cours d thermodynamique ?", fr:'Ça va, tu as le cours de thermodynamique ?', en:'Hey, do you have the thermodynamics notes?'},
+      {sp:'B', name:'Toi', d:'Iyyeh, 3andi. Bghitih ?',                      fr:"Oui j'ai. Tu les veux ?",                   en:'Yes, I have them. Do you want them?'},
+      {sp:'A', name:'Aya', d:"Ah afak, l imtihan ghadda.",                   fr:"Oui s'il te plaît, l'exam c'est demain.",    en:'Yes please, the exam is tomorrow.'},
+      {sp:'B', name:'Toi', d:'Wach bghiti nqraw mjmoeain ?',                 fr:"Tu veux qu'on révise ensemble ?",            en:'Do you want to study together?'},
+      {sp:'A', name:'Aya', d:'Fekra mzyana ! Fin nltaqaw ?',                 fr:'Bonne idée ! On se retrouve où ?',           en:'Great idea! Where do we meet?'},
+      {sp:'B', name:'Toi', d:'Fl mktaba lyoma mea 15h',                      fr:"À la bibliothèque, aujourd'hui à 15h",       en:'At the library, today at 3pm'},
+    ]
+  },
+];
+
+
+// ══════════════════════════════════════════════════════════════════════
+//  FONCTIONS — NE PAS MODIFIER
+// ══════════════════════════════════════════════════════════════════════
+
+function shuffle(a) {
+  let b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+// Lecture audio avec fallback voix synthétique
+function playAudio(src, btn, onEnd) {
+  const audio = new Audio(src);
+  if (btn) btn.classList.add('playing');
+  audio.onerror = () => {
+    if (btn) btn.classList.remove('playing');
+    if (onEnd) onEnd();
+  };
+  audio.onended = () => {
+    if (btn) btn.classList.remove('playing');
+    if (onEnd) onEnd();
+  };
+  audio.play().catch(() => {
+    if (btn) btn.classList.remove('playing');
+  });
+  return audio;
+}
+
+function synthSpeak(word, btn) {
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(word);
+  u.lang = 'ar-MA';
+  u.rate = 0.75;
+  if (btn) {
+    btn.classList.add('playing');
+    u.onend = () => btn.classList.remove('playing');
+  }
+  speechSynthesis.speak(u);
+}
+
+// Vocab / Phrases : cherche dans AUDIO_VOCAB puis AUDIO_PHRASES, sinon synthèse
+function speakWord(word, btn) {
+  const src = AUDIO_VOCAB[word] || AUDIO_PHRASES[word];
+  if (src) {
+    const audio = new Audio(src);
+    if (btn) btn.classList.add('playing');
+    audio.onended = () => { if (btn) btn.classList.remove('playing'); };
+    audio.onerror = () => { if (btn) btn.classList.remove('playing'); synthSpeak(word, btn); };
+    audio.play().catch(() => synthSpeak(word, btn));
+  } else {
+    synthSpeak(word, btn);
+  }
+}
+
+// Écoute : cherche dans AUDIO_ECOUTE, puis AUDIO_VOCAB, sinon synthèse
+function speakWordEcoute(word, btn) {
+  const src = AUDIO_ECOUTE[word] || AUDIO_VOCAB[word];
+  if (src) {
+    const audio = new Audio(src);
+    if (btn) btn.classList.add('playing');
+    audio.onended = () => { if (btn) btn.classList.remove('playing'); };
+    audio.onerror = () => { if (btn) btn.classList.remove('playing'); synthSpeak(word, btn); };
+    audio.play().catch(() => synthSpeak(word, btn));
+  } else {
+    synthSpeak(word, btn);
+  }
+}
+
+function waveform(id, active) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = '';
+  for (let i = 0; i < 20; i++) {
+    const b = document.createElement('div');
+    b.className = 'wbar' + (active ? ' a' : '');
+    b.style.height = (active ? (Math.random() * 28 + 6) : 8) + 'px';
+    el.appendChild(b);
+  }
+  if (active) {
+    const iv = setInterval(() => {
+      if (!el.querySelector('.wbar.a')) { clearInterval(iv); return; }
+      el.querySelectorAll('.wbar.a').forEach(b => b.style.height = (Math.random() * 28 + 6) + 'px');
+    }, 130);
+    return iv;
+  }
+}
+
+function showSection(id, tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  if (tab) tab.classList.add('active');
+}
+
+// ─── VOCAB ───
+function buildVocab() {
+  const pills = document.getElementById('lessonPills');
+  pills.innerHTML = '';
+  Object.entries(LESSONS).forEach(([k, l], i) => {
+    const b = document.createElement('button');
+    b.className = 'lpill' + (i === 0 ? ' active' : '');
+    b.textContent = l.label;
+    b.onclick = () => {
+      document.querySelectorAll('.lpill').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      renderVocab(k);
+    };
+    pills.appendChild(b);
+  });
+  renderVocab('salutations');
+}
+
+function renderVocab(k) {
+  const l = LESSONS[k];
+  document.getElementById('lessonTip').textContent = l.tip;
+  const g = document.getElementById('vocabGrid');
+  g.innerHTML = '';
+  l.words.forEach(w => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    const btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.innerHTML = '&#9654; Écouter';
+    btn.onclick = () => speakWord(w.d, btn);
+    card.innerHTML = `
+      <div class="vc-langs">
+        <span class="vc-fr">${w.fr}</span>
+        <span style="color:var(--border2)">·</span>
+        <span class="vc-en">${w.en}</span>
+      </div>
+      <span class="vc-darija">${w.d}</span>
+      <div class="vc-bottom">
+        <span class="vc-ph">[${w.ph}]</span>
+        <span class="vc-arabic">${w.ar}</span>
+      </div>`;
+    card.appendChild(btn);
+    g.appendChild(card);
+  });
+}
+
+// ─── VERBES ───
+function buildVerbes() {
+  [['vPres', VERBES_PRES], ['vPasse', VERBES_PASSE]].forEach(([id, arr]) => {
+    const tb = document.getElementById(id);
+    arr.forEach(v => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td class="td-d">${v.d}</td><td class="td-fr">${v.fr}</td><td class="td-en">${v.en}</td><td class="td-ph">${v.ph}</td>`;
+      tb.appendChild(tr);
+    });
+  });
+  const ti = document.getElementById('vImp');
+  VERBES_IMP.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td class="td-d">${v.d}</td><td class="td-fr">${v.fr}</td><td class="td-en">${v.en}</td><td class="td-ctx">${v.ctx}</td>`;
+    ti.appendChild(tr);
+  });
+}
+
+// ─── PHRASES ───
+function buildPhrases() {
+  [['cours','phrasesCours'],['cafe','phrasesCafe'],['ville','phrasesVille'],['urgence','phrasesUrgence']].forEach(([k, id]) => {
+    const c = document.getElementById(id);
+    c.innerHTML = '';
+    PHRASES[k].forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'phrase-item';
+      const speakBtn = document.createElement('button');
+      speakBtn.className = 'phrase-speak';
+      speakBtn.textContent = '▶';
+      speakBtn.onclick = () => speakWord(p.d, speakBtn);
+      item.innerHTML = `
+        <div class="phrase-left">
+          <div class="phrase-darija">${p.d}</div>
+          <div class="phrase-trans">
+            <span class="phrase-fr">${p.fr}</span>
+            <span class="phrase-en">${p.en}</span>
+          </div>
+          <div class="phrase-ctx">${p.ctx}</div>
+        </div>`;
+      item.appendChild(speakBtn);
+      c.appendChild(item);
+    });
+  });
+}
+
+// ─── DIALOGUES ───
+function buildDialogues() {
+  const c = document.getElementById('dialogueContainer');
+  c.innerHTML = '';
+  DIALOGUES.forEach((dl, di) => {
+    const card = document.createElement('div');
+    card.className = 'dialogue-card';
+    const lines = dl.lines.map(ln => `
+      <div class="dl-line">
+        <div class="dl-avatar ${ln.sp === 'B' ? 'b' : ''}">${ln.name.substring(0,2).toUpperCase()}</div>
+        <div class="dl-content">
+          <div class="dl-darija">${ln.d}</div>
+          <div class="dl-fr">${ln.fr}</div>
+          <div class="dl-en">${ln.en}</div>
+        </div>
+      </div>`).join('');
+    const statusEl = document.createElement('span');
+    statusEl.className = 'dl-status';
+    const playBtn = document.createElement('button');
+    playBtn.className = 'dl-play';
+    playBtn.innerHTML = '&#9654; Écouter le dialogue';
+    playBtn.onclick = () => {
+      const src = AUDIO_DIALOGUES[di];
+      if (!src) { statusEl.textContent = 'Audio bientôt disponible'; return; }
+      const audio = new Audio(src);
+      audio.onerror = () => { statusEl.textContent = 'Audio bientôt disponible'; };
+      audio.onended = () => { statusEl.textContent = ''; };
+      audio.play();
+      statusEl.textContent = 'En cours de lecture…';
+    };
+    card.innerHTML = `
+      <div class="dialogue-header">
+        <span class="dialogue-title">${dl.title}</span>
+        <span class="dialogue-meta">${dl.meta}</span>
+      </div>
+      <div class="dialogue-body">${lines}</div>
+      <div class="dialogue-footer"></div>`;
+    card.querySelector('.dialogue-footer').appendChild(playBtn);
+    card.querySelector('.dialogue-footer').appendChild(statusEl);
+    c.appendChild(card);
+  });
+}
+
+// ─── QUIZ ───
+const ALL_WORDS = Object.values(LESSONS).flatMap(l => l.words);
+let quizPool = [], quizIdx = 0, quizSc = 0;
+
+function buildQuiz() {
+  quizPool = shuffle(ALL_WORDS.map(w => ({
+    q: `Comment dit-on en Darija : "${w.fr}" ?`,
+    correct: w.d,
+    opts: shuffle([w.d, ...shuffle(ALL_WORDS.filter(x => x.d !== w.d)).slice(0,3).map(x => x.d)])
+  }))).slice(0,10);
+  quizIdx = 0; quizSc = 0;
+  document.getElementById('quizBody').style.display = '';
+  document.getElementById('quizDone').classList.remove('show');
+  showQ();
+}
+
+function showQ() {
+  if (quizIdx >= quizPool.length) { endQuiz(); return; }
+  const q = quizPool[quizIdx];
+  document.getElementById('qNum').textContent = quizIdx + 1;
+  document.getElementById('quizScore').textContent = quizSc;
+  document.getElementById('quizFill').style.width = (quizIdx / 10 * 100) + '%';
+  document.getElementById('quizQ').textContent = q.q;
+  document.getElementById('quizFb').className = 'feedback';
+  document.getElementById('quizNext').disabled = true;
+  const c = document.getElementById('quizOpts');
+  c.innerHTML = '';
+  q.opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'quiz-opt';
+    b.textContent = o;
+    b.onclick = () => {
+      Array.from(c.children).forEach(x => x.disabled = true);
+      const ok = o === q.correct;
+      b.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) Array.from(c.children).forEach(x => { if (x.textContent === q.correct) x.classList.add('correct'); });
+      const fb = document.getElementById('quizFb');
+      fb.textContent = ok ? 'Correct ✓' : 'Réponse : ' + q.correct;
+      fb.className = 'feedback show ' + (ok ? 'correct' : 'wrong');
+      if (ok) quizSc++;
+      document.getElementById('quizNext').disabled = false;
+    };
+    c.appendChild(b);
+  });
+}
+function nextQuestion() { quizIdx++; showQ(); }
+function endQuiz() {
+  document.getElementById('quizBody').style.display = 'none';
+  document.getElementById('finalScore').textContent = quizSc + '/10';
+  document.getElementById('quizDone').classList.add('show');
+}
+function resetQuiz() { buildQuiz(); }
+
+// ─── ÉCOUTE (utilise AUDIO_ECOUTE) ───
+let listenPool = [], listenIdx = 0;
+
+function buildListen() {
+  listenPool = shuffle([...ALL_WORDS]);
+  listenIdx = 0;
+  showListen();
+}
+
+function showListen() {
+  if (listenIdx >= listenPool.length) listenIdx = 0;
+  const w = listenPool[listenIdx];
+  document.getElementById('listenWord').textContent = w.d;
+  document.getElementById('listenPh').textContent = '[' + w.ph + ']';
+  document.getElementById('listenFill').style.width = (listenIdx / listenPool.length * 100) + '%';
+  document.getElementById('listenFb').className = 'feedback';
+  document.getElementById('listenNext').disabled = true;
+  waveform('waveform1', false);
+
+  // Joue automatiquement l'audio de la créatrice à chaque nouveau mot
+  speakWordEcoute(w.d, null);
+
+  const correct = w.fr + ' / ' + w.en;
+  const opts = shuffle([correct, ...shuffle(ALL_WORDS.filter(x => x.fr !== w.fr)).slice(0,3).map(x => x.fr + ' / ' + x.en)]);
+  const c = document.getElementById('listenOpts');
+  c.innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'listen-opt';
+    b.textContent = o;
+    b.onclick = () => {
+      Array.from(c.children).forEach(x => x.disabled = true);
+      const ok = o === correct;
+      b.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) Array.from(c.children).forEach(x => { if (x.textContent === correct) x.classList.add('correct'); });
+      const fb = document.getElementById('listenFb');
+      fb.textContent = ok ? 'Correct ✓' : "C'était : " + w.fr;
+      fb.className = 'feedback show ' + (ok ? 'correct' : 'wrong');
+      document.getElementById('listenNext').disabled = false;
+    };
+    c.appendChild(b);
+  });
+}
+function nextListen() { listenIdx++; showListen(); }
+
+// ─── TRADUCTION ───
+let T_WORDS = [], tIdx = 0, tSc = 0;
+
+function buildTranslation() {
+  T_WORDS = shuffle([...ALL_WORDS]).slice(0,10);
+  tIdx = 0; tSc = 0;
+  showT();
+}
+function showT() {
+  if (tIdx >= T_WORDS.length) return;
+  const w = T_WORDS[tIdx];
+  document.getElementById('tNum').textContent = tIdx + 1;
+  document.getElementById('tScore').textContent = tSc;
+  document.getElementById('tFill').style.width = (tIdx / 10 * 100) + '%';
+  document.getElementById('tWord').textContent = w.fr;
+  document.getElementById('tWordEn').textContent = w.en;
+  document.getElementById('tInput').value = '';
+  document.getElementById('tFb').className = 'feedback';
+  document.getElementById('tNext').disabled = true;
+  setTimeout(() => document.getElementById('tInput').focus(), 50);
+}
+function checkTranslation() {
+  const val = document.getElementById('tInput').value.trim().toLowerCase();
+  const correct = T_WORDS[tIdx].d.toLowerCase();
+  const ok = val === correct || (correct.includes(val) && val.length > 2);
+  const fb = document.getElementById('tFb');
+  fb.textContent = ok ? 'Correct ✓' : 'Réponse attendue : ' + T_WORDS[tIdx].d;
+  fb.className = 'feedback show ' + (ok ? 'correct' : 'wrong');
+  if (ok) tSc++;
+  document.getElementById('tNext').disabled = false;
+}
+function nextTranslation() { tIdx++; if (tIdx < T_WORDS.length) showT(); }
+
+// ─── PRONONCIATION ───
+const REC_WORDS = shuffle([...ALL_WORDS]);
+let recIdx = 0, mediaRec = null, recChunks = [], recBlob = null, recAudio = null, waveIv = null;
+
+function showRecWord() {
+  const w = REC_WORDS[recIdx % REC_WORDS.length];
+  document.getElementById('recWord').textContent = w.d;
+  document.getElementById('recPh').textContent = '[' + w.ph + '] — ' + w.fr + ' · ' + w.en;
+  document.getElementById('recPlayBtn').disabled = true;
+  document.getElementById('recStatus').textContent = 'Clique sur "Écouter" pour entendre la prononciation';
+  document.getElementById('recFill').style.width = (recIdx / REC_WORDS.length * 100) + '%';
+  document.getElementById('recCounter').textContent = (recIdx + 1) + '/' + REC_WORDS.length;
+  recBlob = null; recAudio = null;
+  waveform('waveform2', false);
+}
+
+function playCreatorAudio() {
+  const w = REC_WORDS[recIdx % REC_WORDS.length];
+  const btn = document.getElementById('recListenBtn');
+  speakWord(w.d, btn);
+  document.getElementById('recStatus').textContent = 'Écoute bien, puis enregistre-toi !';
+}
+
+function nextRecWord() { recIdx++; showRecWord(); }
+
+async function toggleRecording() {
+  const btn = document.getElementById('recBtn');
+  if (mediaRec && mediaRec.state === 'recording') {
+    mediaRec.stop();
+    btn.textContent = '&#9679; M\'enregistrer';
+    if (waveIv) clearInterval(waveIv);
+    waveform('waveform2', false);
+  } else {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      recChunks = [];
+      mediaRec = new MediaRecorder(stream);
+      mediaRec.ondataavailable = e => recChunks.push(e.data);
+      mediaRec.onstop = () => {
+        recBlob = new Blob(recChunks, {type: 'audio/webm'});
+        recAudio = new Audio(URL.createObjectURL(recBlob));
+        document.getElementById('recPlayBtn').disabled = false;
+        document.getElementById('recStatus').textContent = 'Enregistré ! Compare avec ma prononciation.';
+        stream.getTracks().forEach(t => t.stop());
+      };
+      mediaRec.start();
+      btn.textContent = '⏹ Arrêter';
+      document.getElementById('recStatus').textContent = 'Enregistrement en cours…';
+      waveIv = waveform('waveform2', true);
+    } catch(e) {
+      document.getElementById('recStatus').textContent = 'Microphone non accessible';
+    }
+  }
+}
+
+function playRecording() { if (recAudio) recAudio.play(); }
+
+// ─── INIT ───
+document.getElementById('tInput').addEventListener('keydown', e => { if (e.key === 'Enter') checkTranslation(); });
+buildVocab();
+buildVerbes();
+buildPhrases();
+buildDialogues();
+buildQuiz();
+buildTranslation();
+buildListen();
+showRecWord();
+
+</script>
+</body>
+</html>
